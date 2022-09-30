@@ -1,0 +1,7 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">@ViewBag.Error.Title</h1>
+<h2 class="text-danger">@ViewBag.Error.ErrorMessage</h2>
+<a href="@ViewBag.Error.Path">Try again?</a> 
