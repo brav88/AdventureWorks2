@@ -52,10 +52,16 @@ namespace AdventureWorks2.Controllers
             {
                 User user = new User
                 {
-                    BusinessEntityID = Convert.ToInt16(ds.Rows[0]["BusinessEntityID"]),
-                    EmailAddress = ds.Rows[0]["EmailAddress"].ToString(),
-                    FullName = ds.Rows[0]["FullName"].ToString(),
-                    JobTitle = ds.Rows[0]["JobTitle"].ToString()
+                    BusinessEntityID = ds.Rows[0]["BusinessEntityID"].ToString(),
+                    Name = ds.Rows[0]["Name"].ToString(),
+                    Email = txtEmail,
+                    JobTitle = ds.Rows[0]["JobTitle"].ToString(),
+                    HireDate = Convert.ToDateTime(ds.Rows[0]["HireDate"].ToString()).ToShortDateString(),
+                    Department = ds.Rows[0]["Department"].ToString(),
+                    /*PhotoPath = ds.Rows[0]["PhotoPath"].ToString(),*/
+                    Address = ds.Rows[0]["Address"].ToString(),
+                    VacationHours = Convert.ToInt16(ds.Rows[0]["VacationHours"]),
+                    SickLeaveHours = Convert.ToInt16(ds.Rows[0]["SickLeaveHours"]),
                 };
 
                 return user;
