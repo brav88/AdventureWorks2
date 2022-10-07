@@ -1,126 +1,149 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <div class="card">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="false">Sales</button>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row mt-2 justify-content-center">
-                    <div class="col col-md-9 col-lg-7 col-xl-5">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-4">
-                                <div class="d-flex text-black">
-                                    <div class="flex-shrink-0">
-                                        <img src=""
-                                             class="img-fluid" style="width: 180px; border-radius: 10px; height:240px">
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h5 class="mb-1">@ViewBag.User.Name</h5>
-                                        <p class="mb-2 pb-1" style="color: #2b2a2a;">@ViewBag.User.JobTitle</p>
-                                        <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                             style="background-color: #efefef;">
-                                            <div>
-                                                <p class="small text-muted mb-1">Vacation</p>
-                                                <p class="mb-0">@ViewBag.User.VacationHours h</p>
-                                            </div>
-                                            <div class="px-3">
-                                                <p class="small text-muted mb-1">Sick Hours</p>
-                                                <p class="mb-0">@ViewBag.User.SickLeaveHours h</p>
-                                            </div>
-                                            <div>
-                                                <p class="small text-muted mb-1">Rating</p>
-                                                <p class="mb-0">8.5</p>
-                                            </div>
-                                        </div>
-                                        <form asp-action="UpdatePhoto" asp-controller="Home" method="post" enctype="multipart/form-data">
-                                            <div class="d-flex pt-1">
-                                                <div class="file-upload-wrapper">
-                                                    <input type="file" name="photo" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="d-flex pt-1">
-                                                <button type="submit" class="btn btn-outline-primary me-1 flex-grow-1">Update photo</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-md-9 col-lg-7 col-xl-5">
-                        <div class="col-lg-12">
-                            <div class="card" style="border-radius: 15px;">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Full Name</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">@ViewBag.User.Name</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Email</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">@ViewBag.User.Email</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Department</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">@ViewBag.User.Department</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Hire Date</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">@ViewBag.User.HireDate</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Address</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">@ViewBag.User.Address</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row mt-2 justify-content-center">
-                        <div class="col col-md-9 col-lg-7 col-xl-5">
-                            <div class="ct-chart ct-perfect-fourth">
+	<div class="card">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="false">Sales</button>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div class="row mt-2 justify-content-center">
+					<div class="col col-md-9 col-lg-7 col-xl-5">
+						<div class="card" style="border-radius: 15px;">
+							<div class="card-body p-4">
+								<div class="d-flex text-black">
+									<div class="flex-shrink-0">
+										<img src="..\@ViewBag.User.PhotoPath"
+											 class="img-fluid" style="width: 180px; border-radius: 10px; height:240px" />
+										<input id="file-input" type="file" name="photo" style="display:none" />
+										<a asp-action="DeletePhoto" asp-controller="Home" style="position:absolute;margin-left: -22px;color:black">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+												<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+											</svg>
+										</a>
+									</div>
+									<div class="flex-grow-1 ms-3">
+										<h5 class="mb-1">@ViewBag.User.Name</h5>
+										<p class="mb-2 pb-1" style="color: #2b2a2a;">@ViewBag.User.JobTitle</p>
+										<div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+											 style="background-color: #efefef;">
+											<div>
+												<p class="small text-muted mb-1">Vacation</p>
+												<p class="mb-0">@ViewBag.User.VacationHours h</p>
+											</div>
+											<div class="px-3">
+												<p class="small text-muted mb-1">Sick Hours</p>
+												<p class="mb-0">@ViewBag.User.SickLeaveHours h</p>
+											</div>
+											<div>
+												<p class="small text-muted mb-1">Rating</p>
+												<p class="mb-0">8.5</p>
+											</div>
+										</div>
+										<form asp-action="UpdatePhoto" asp-controller="Home" method="post" enctype="multipart/form-data">
+											<div class="d-flex pt-1">
+												<div class="file-upload-wrapper">
+													<input type="file" name="photo" class="form-control" />
+												</div>
+											</div>
+											<div class="d-flex pt-1">
+												<button type="submit" class="btn btn-outline-primary me-1 flex-grow-1">Update photo</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col col-md-9 col-lg-7 col-xl-5">
+						<div class="col-lg-12">
+							<div class="card" style="border-radius: 15px;">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Full Name</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">@ViewBag.User.Name</p>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Email</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">@ViewBag.User.Email</p>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Department</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">@ViewBag.User.Department</p>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Hire Date</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">@ViewBag.User.HireDate</p>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Address</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">@ViewBag.User.Address</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<div class="row mt-2 justify-content-center">
+						<div class="col col-md-9 col-lg-7 col-xl-5">
+							<div class="ct-chart ct-golden-section" id="chart1"></div>
+							<div class="ct-chart ct-golden-section" id="chart2"></div>
+							<script type="text/javascript">
+								var options = {
+									width: 300,
+									height: 200
+								};
 
-                            </div>                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								// Initialize a Line chart in the container with the ID chart1
+								new Chartist.Line('#chart1', {
+									labels: [1, 2, 3, 4],
+									series: [[100, 120, 180, 200]]
+								}, options);
+
+								// Initialize a Line chart in the container with the ID chart2
+								new Chartist.Bar('#chart2', {
+									labels: [1, 2, 3, 4],
+									series: [[5, 2, 8, 3]]
+								}, options);
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

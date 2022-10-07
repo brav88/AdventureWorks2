@@ -9,7 +9,7 @@ namespace AdventureWorks.DatabaseHelper
 {
     public class DatabaseHelper
     {
-        const string servidor = @"DESKTOP-D0RJ0FV";
+        const string servidor = @"localhost";
         const string baseDatos = "AdventureWorks2019";
         const string strConexion = "Data Source=" + servidor + ";Initial Catalog=" + baseDatos + ";Integrated Security=True";
 

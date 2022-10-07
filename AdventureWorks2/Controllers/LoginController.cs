@@ -58,7 +58,7 @@ namespace AdventureWorks2.Controllers
                     JobTitle = ds.Rows[0]["JobTitle"].ToString(),
                     HireDate = Convert.ToDateTime(ds.Rows[0]["HireDate"].ToString()).ToShortDateString(),
                     Department = ds.Rows[0]["Department"].ToString(),
-                    /*PhotoPath = ds.Rows[0]["PhotoPath"].ToString(),*/
+                    PhotoPath = ds.Rows[0]["PhotoPath"].ToString(),
                     Address = ds.Rows[0]["Address"].ToString(),
                     VacationHours = Convert.ToInt16(ds.Rows[0]["VacationHours"]),
                     SickLeaveHours = Convert.ToInt16(ds.Rows[0]["SickLeaveHours"]),
