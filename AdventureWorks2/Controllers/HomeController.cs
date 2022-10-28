@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace AdventureWorks2.Controllers
 {
@@ -35,7 +36,7 @@ namespace AdventureWorks2.Controllers
                     Path = "/Login"
                 };
 
-                return View("ErrorHandler");                
+                return View("ErrorHandler");
             }
         }
 
@@ -105,6 +106,31 @@ namespace AdventureWorks2.Controllers
 
                 return View("ErrorHandler");
             }
+        }
+
+        public ActionResult GetSales()
+        {
+            DataTable ds = DatabaseHelper.ExecuteStoreProcedure("[dbo].[spGetSales]", null);
+
+            List<List<int>> seriesList = new List<List<int>>();
+            List<int> labels = new List<int>();
+            List<int> series1 = new List<int>();
+
+            foreach (DataRow row in ds.Rows)
+            {
+                labels.Add(Convert.ToInt32(row["Year"]));
+                series1.Add(Convert.ToInt32(row["SumOfSales"]));
+            }
+            
+            seriesList.Add(series1);            
+
+            SalesData data = new SalesData()
+            {
+                labels = labels,
+                series = seriesList
+            };
+
+            return Json(data);
         }
 
         public IActionResult Privacy()

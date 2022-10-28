@@ -121,24 +121,25 @@
 					<div class="row mt-2 justify-content-center">
 						<div class="col col-md-9 col-lg-7 col-xl-5">
 							<div class="ct-chart ct-golden-section" id="chart1"></div>
-							<div class="ct-chart ct-golden-section" id="chart2"></div>
+							
 							<script type="text/javascript">
+								
 								var options = {
 									width: 300,
 									height: 200
 								};
 
-								// Initialize a Line chart in the container with the ID chart1
-								new Chartist.Line('#chart1', {
-									labels: [1, 2, 3, 4],
-									series: [[100, 120, 180, 200]]
-								}, options);
+								var xhttp = new XMLHttpRequest();
+								xhttp.open("GET", "/Home/GetSales", true);
+								xhttp.send();
 
-								// Initialize a Line chart in the container with the ID chart2
-								new Chartist.Bar('#chart2', {
-									labels: [1, 2, 3, 4],
-									series: [[5, 2, 8, 3]]
-								}, options);
+								xhttp.onreadystatechange = function () {
+									if (this.readyState == 4 && this.status == 200) {
+										
+										var data = xhttp.responseText;										
+										new Chartist.Line('#chart1', JSON.parse(data), options);
+									}
+								};																							 
 							</script>
 						</div>
 					</div>
