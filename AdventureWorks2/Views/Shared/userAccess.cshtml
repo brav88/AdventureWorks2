@@ -1,0 +1,16 @@
+﻿<script type="text/javascript">
+	var api = new XMLHttpRequest();
+	api.open("GET", "/Login/GetCurrentSessionUserAccess");
+	api.send();
+
+	api.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+
+			let data = JSON.parse(this.responseText);
+
+			data.forEach((item) => {
+				document.getElementById(item.controller + item.action).removeAttribute("hidden");
+			});
+		}
+	};
+</script>

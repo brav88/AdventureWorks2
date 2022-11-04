@@ -2,15 +2,20 @@
 	ViewData["Title"] = "Home Page";
 }
 
+@Html.Partial("userAccess")
+
 <div class="text-center">
 	<div class="card">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
 			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="false">Sales</button>
-			</li>
+			@if (@ViewBag.Sales)
+			{
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="false">Sales</button>
+				</li>
+			}
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -121,9 +126,9 @@
 					<div class="row mt-2 justify-content-center">
 						<div class="col col-md-9 col-lg-7 col-xl-5">
 							<div class="ct-chart ct-golden-section" id="chart1"></div>
-							
+
 							<script type="text/javascript">
-								
+
 								var options = {
 									width: 300,
 									height: 200
@@ -135,11 +140,11 @@
 
 								xhttp.onreadystatechange = function () {
 									if (this.readyState == 4 && this.status == 200) {
-										
-										var data = xhttp.responseText;										
+
+										var data = xhttp.responseText;
 										new Chartist.Line('#chart1', JSON.parse(data), options);
 									}
-								};																							 
+								};
 							</script>
 						</div>
 					</div>

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using AdventureWorks2.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace AdventureWorks2.Controllers
 {
@@ -13,6 +14,9 @@ namespace AdventureWorks2.Controllers
         // GET: LoginController
         public ActionResult Index()
         {
+            ViewBag.Employees = false;
+            ViewBag.Sales = false;
+
             return View();
         }
 
@@ -23,11 +27,15 @@ namespace AdventureWorks2.Controllers
 
             if (user != null)
             {
+                List<UserAccess>? userAccessList = GetUserAccess(user.BusinessEntityID);
+
                 string strUser = JsonConvert.SerializeObject(user);
+                string strUserAccessList = JsonConvert.SerializeObject(userAccessList);
 
                 HttpContext.Session.SetString("userSession", strUser);
+                HttpContext.Session.SetString("userAccessListSession", strUserAccessList);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(userAccessList[0].Action, userAccessList[0].Controller);
             }
 
             ViewBag.Error = new ErrorHandler()
@@ -72,6 +80,40 @@ namespace AdventureWorks2.Controllers
             }
         }
 
+        private List<UserAccess>? GetUserAccess(string businessEntityID)
+        {
+            List<UserAccess> strUserAccessList = new List<UserAccess>();
+
+            DataTable ds = DatabaseHelper.ExecuteStoreProcedure("[dbo].[spGetUserAccess]", new List<SqlParameter>()
+            {
+                new SqlParameter("@BusinessEntityID", businessEntityID),                
+            });
+
+            foreach (DataRow row in ds.Rows)
+            {
+                strUserAccessList.Add(new UserAccess
+                {
+                    BusinessEntityID = row["BusinessEntityID"].ToString(),
+                    Controller = row["Controller"].ToString(),
+                    Action = row["Action"].ToString(),
+                    DatabaseAction = row["DatabaseAction"].ToString(),
+                });
+            }
+
+            return strUserAccessList;
+        }
+
+        public IActionResult GetCurrentSessionUserAccess()
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("userAccessListSession")))
+            {
+                List<UserAccess>? userAccessList = JsonConvert.DeserializeObject<List<UserAccess>>(HttpContext.Session.GetString("userAccessListSession"));
+
+                return Json(userAccessList);
+            }
+
+            return Ok();                
+        }
 
         // GET: LoginController/Details/5
         public ActionResult Details(int id)

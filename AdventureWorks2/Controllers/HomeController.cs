@@ -25,6 +25,9 @@ namespace AdventureWorks2.Controllers
             {
                 ViewBag.User = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userSession"));
 
+                ViewBag.Employees = true;
+                ViewBag.Sales = true;
+
                 return View();
             }
             else
