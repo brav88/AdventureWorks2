@@ -4,6 +4,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Reflection;
 using AdventureWorks2.Models;
+using System.IO;
+using System.Globalization;
 
 namespace AdventureWorks2.Controllers
 {
@@ -24,7 +26,7 @@ namespace AdventureWorks2.Controllers
             using (MailMessage mm = new MailMessage(model.Email, model.To))
             {
                 mm.Subject = model.Subject;
-                mm.Body = model.Body;
+                /*mm.Body = model.Body;*/
                 /*if (model.Attachment.Length > 0)
                 {
                     using (var stream = model.Attachment.OpenReadStream())
@@ -34,6 +36,18 @@ namespace AdventureWorks2.Controllers
                     }
                 }*/
                 mm.IsBodyHtml = true;
+
+                /**/
+                using (var sr = new StreamReader("wwwroot/html/welcome.txt"))
+                {
+                    // Read the stream as a string, and write the string to the console.
+                    string body =  sr.ReadToEnd().Replace("@CLIENTNAME", "SAMUEL");
+
+                    mm.Body = body;
+                }
+                /**/
+
+
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
