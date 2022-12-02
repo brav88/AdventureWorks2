@@ -12,53 +12,25 @@ namespace AdventureWorks2.Controllers
         // GET: ProductsController
         public ActionResult Index()
         {
-            ViewBag.CategoriesList = GetCatalog("spGetProductCategories", null);
-            ViewBag.SubCategoriesList = new List<Catalog>();
-            ViewBag.ProductsList = new List<Product>();
+            ViewBag.CategoriesList = GetCatalog("spGetProductCategories", null);            
 
             return View();
-        }
-
-        public List<Catalog> GetCatalog(string storeProcedure, List<SqlParameter> list)
-        {
-            List<Catalog> catalogList = new List<Catalog>();
-
-            foreach (DataRow item in DatabaseHelper.ExecuteStoreProcedure(storeProcedure, list).Rows)
-            {
-                catalogList.Add(new Catalog
-                {
-                    Id = Convert.ToUInt16(item["id"]),
-                    Desc = item["desc"].ToString()
-                });
-            }
-
-            return catalogList;
         }
 
         public ActionResult LoadSubCategories(int categoryId)
         {
             ViewBag.CategoriesList = GetCatalog("spGetProductCategories", null);
-            ViewBag.ProductsList = new List<Product>();
-
-            ViewBag.SubCategoriesList = GetCatalog("spGetSubProductCategory", new List<SqlParameter> {
-                new SqlParameter("@ProductCategoryID", categoryId)
-            });
+            ViewBag.SubCategoriesList = GetCatalog("spGetSubProductCategory", new List<SqlParameter> { new SqlParameter("@ProductCategoryID", categoryId) });
 
             return View("Index");
         }
 
         public ActionResult LoadProducts(int subCategoryId)
         {
+            ViewBag.CategoriesList = GetCatalog("spGetProductCategories", null);            
+
             List<Product> products = new List<Product>();
-
-            ViewBag.CategoriesList = GetCatalog("spGetProductCategories", null);
-            ViewBag.SubCategoriesList = new List<Catalog>();
-
-            DataTable ds = DatabaseHelper.ExecuteStoreProcedure("spGetProducts", new List<SqlParameter> {
-                new SqlParameter("@ProductSubcategoryID", subCategoryId)
-            });
-
-            foreach (DataRow item in ds.Rows)
+            foreach (DataRow item in DatabaseHelper.ExecuteStoreProcedure("spGetProducts", new List<SqlParameter> { new SqlParameter("@ProductSubcategoryID", subCategoryId) }).Rows)
             {
                 products.Add(new Product
                 {
@@ -74,73 +46,19 @@ namespace AdventureWorks2.Controllers
             return View("Index");
         }
 
-        // GET: ProductsController/Details/5
-        public ActionResult Details(int option)
+        public List<Catalog> GetCatalog(string storeProcedure, List<SqlParameter>? list)
         {
-            return View();
-        }
-
-        // GET: ProductsController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ProductsController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            List<Catalog> catalogList = new List<Catalog>();
+            foreach (DataRow item in DatabaseHelper.ExecuteStoreProcedure(storeProcedure, list).Rows)
             {
-                return RedirectToAction(nameof(Index));
+                catalogList.Add(new Catalog
+                {
+                    Id = Convert.ToUInt16(item["id"]),
+                    Desc = item["desc"].ToString()
+                });
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: ProductsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return catalogList;
         }
     }
 }
