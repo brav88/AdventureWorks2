@@ -1,7 +1,7 @@
 USE [AdventureWorks2019]
 GO
 
-CREATE PROCEDURE [dbo].[spGetUserAccess]
+CREATE OR ALTER PROCEDURE [dbo].[spGetUserAccess]
 	@BusinessEntityID INT
 AS
 BEGIN

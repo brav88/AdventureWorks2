@@ -4,6 +4,62 @@
 
 @Html.Partial("userAccess")
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <div class="text-center">
-	Welcome to products
+	<div class="container">
+		<form asp-controller="Products" asp-action="LoadSubCategories">
+			<select name="categoryId" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
+				<option selected>Select category</option>
+				@foreach (var @item in @ViewBag.CategoriesList)
+				{
+					<option value="@item.Id">@item.Desc</option>
+				}
+			</select>
+		</form>
+		<hr />
+		<form asp-controller="Products" asp-action="LoadProducts">
+			<select name="subCategoryId" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
+				<option selected>Select Subcategory</option>
+				@foreach (var @item in @ViewBag.SubCategoriesList)
+				{
+					<option value="@item.Id">@item.Desc</option>
+				}
+			</select>
+		</form>
+		<hr />
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control" id="myInput" placeholder="name@example.com">
+			<label for="myInput">Search</label>
+		</div>
+		<script>
+			$(document).ready(function () {
+				$("#myInput").on("keyup", function () {
+					var value = $(this).val().toLowerCase();
+					$("#myTable tr").filter(function () {
+						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+					});
+				});
+			});
+		</script>
+		<hr />
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>ProductNumber</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody id="myTable">
+				@foreach (var @item in @ViewBag.ProductsList)
+				{
+					<tr>
+						<td>@item.Name</td>
+						<td>@item.ProductNumber</td>
+						<td>$@item.ListPrice</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 </div>

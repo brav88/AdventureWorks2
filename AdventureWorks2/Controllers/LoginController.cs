@@ -14,9 +14,6 @@ namespace AdventureWorks2.Controllers
         // GET: LoginController
         public ActionResult Index()
         {
-            ViewBag.Employees = false;
-            ViewBag.Sales = false;
-
             return View();
         }
 
